@@ -9,7 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Sevices\" />
+    <Compile Remove="Sevices\**" />
+    <EmbeddedResource Remove="Sevices\**" />
+    <None Remove="Sevices\**" />
+    <Page Remove="Sevices\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PixiEditor.ColorPicker" Version="3.4.1" />
   </ItemGroup>
 
 </Project>

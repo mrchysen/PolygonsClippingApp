@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PolygonsClippingApp.UIElements"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -15,13 +14,25 @@
         <Border BorderBrush="Black"
                 BorderThickness="0 0 0 0.1">
             <DockPanel>
-                <Label DockPanel.Dock="Left">Меню элементов</Label>
+                <Label DockPanel.Dock="Left">Меню элементов</Label> 
 
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Width="25" Margin="0 2 2 2" VerticalContentAlignment="Center">+</Button>
+                    <Button Click="AddPolygon" Width="25" Margin="0 2 2 2" VerticalContentAlignment="Center">+</Button>
+                    <Button Click="DeletePolygon" Width="25" Margin="0 2 2 2" VerticalContentAlignment="Center">-</Button>
                 </StackPanel>
             </DockPanel>
         </Border>
-        
+
+        <ListBox x:Name="PolygonListBox" Grid.Row="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <Label Width="20" Height="20" Background="{Binding Path=Polygon.Fill}" />
+                        <TextBlock FontSize="16" Margin="5 0 0 0" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
     </Grid>
 </UserControl>

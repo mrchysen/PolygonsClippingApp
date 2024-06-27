@@ -1,0 +1,21 @@
+﻿<Window x:Class="PolygonsClippingApp.SubWindows.PolygonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PolygonsClippingApp.SubWindows"
+        xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+        mc:Ignorable="d"
+        Title="PolygonWindow" Height="450" Width="800">
+    <StackPanel>
+        <Label>Название полигона</Label>
+        <TextBox x:Name="NameTextBox"></TextBox>
+        <Label>Точки(через пробел)</Label>
+        <TextBox x:Name="PointsTextBox"></TextBox>
+        <colorpicker:PortableColorPicker x:Name="ColorPicker" Height="30" Width="30" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button IsCancel="True">Отмена</Button>
+            <Button Click="Create">Принять</Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

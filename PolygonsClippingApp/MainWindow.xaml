@@ -9,7 +9,7 @@
         Title="MainWindow" Height="450" Width="800"
         FontSize="14" MinHeight="450" MinWidth="800">
     <DockPanel>
-        <Menu FontSize="14" DockPanel.Dock="Top" Height="20">
+        <Menu FontSize="14" DockPanel.Dock="Top" Height="20" Background="Tan">
             <MenuItem Header="Файл">
                 
             </MenuItem>
@@ -26,12 +26,13 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
-            <uie:PolygonList Margin="10" />
+            <uie:PolygonList x:Name="PolygonList" Margin="10" Background="White"/>
 
             <Border Grid.Column="1"
                     BorderBrush="Black"
-                    BorderThickness="0.2 0 0 0">
-                <Canvas x:Name="Canvas" Background="Wheat"/>
+                    BorderThickness="0.2 0 0 0"
+                    ClipToBounds="True">
+                <uie:ZoomCanvas x:Name="CanvasField" Background="AliceBlue"/>
             </Border>
 
         </Grid>
