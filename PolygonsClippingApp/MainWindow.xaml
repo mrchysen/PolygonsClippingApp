@@ -1,0 +1,39 @@
+﻿<Window x:Class="PolygonsClippingApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PolygonsClippingApp"
+        xmlns:uie="clr-namespace:PolygonsClippingApp.UIElements"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        FontSize="14" MinHeight="450" MinWidth="800">
+    <DockPanel>
+        <Menu FontSize="14" DockPanel.Dock="Top" Height="20">
+            <MenuItem Header="Файл">
+                
+            </MenuItem>
+            
+            <MenuItem Header="Полигоны">
+
+            </MenuItem>
+
+        </Menu>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" MinWidth="200" MaxWidth="300"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <uie:PolygonList Margin="10" />
+
+            <Border Grid.Column="1"
+                    BorderBrush="Black"
+                    BorderThickness="0.2 0 0 0">
+                <Canvas x:Name="Canvas" Background="Wheat"/>
+            </Border>
+
+        </Grid>
+    </DockPanel>
+</Window>
