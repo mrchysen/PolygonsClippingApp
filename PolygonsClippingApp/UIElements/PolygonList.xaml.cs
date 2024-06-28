@@ -38,11 +38,11 @@ namespace PolygonsClippingApp.UIElements
 
             if (dialogResult != null && dialogResult.Value)
             {
-                var poly = window.GetPolygonModel.Polygon;
+                var model = window.GetPolygonModel;
 
-                Polygons.Add(window.GetPolygonModel);
+                Polygons.Add(model);
 
-                Canvas.Children.Add(poly);
+                Canvas.Children.Add(model.Polygon);
             }
         }
 
@@ -50,10 +50,33 @@ namespace PolygonsClippingApp.UIElements
         {
             if (SelectedModel != null) 
             {
+                Canvas.Children.Remove(SelectedModel.Polygon);
+
                 Polygons.Remove(SelectedModel);
             }
         }
 
+        private void ChangePolygon(object sender, RoutedEventArgs e)
+        {
+            if (SelectedModel == null)
+                return;
 
+            PolygonWindow window = new(SelectedModel);
+
+            bool? dialogResult = window.ShowDialog();
+
+            if (dialogResult != null && dialogResult.Value)
+            {
+                var model = window.GetPolygonModel;
+
+                int indexOfSelected = Polygons.IndexOf(SelectedModel);
+
+                Canvas.Children.Remove(SelectedModel.Polygon);
+
+                Polygons[indexOfSelected] = model;
+
+                Canvas.Children.Add(model.Polygon);
+            }
+        }
     }
 }

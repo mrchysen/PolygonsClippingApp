@@ -19,6 +19,9 @@
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Click="AddPolygon" Width="25" Margin="0 2 2 2" VerticalContentAlignment="Center">+</Button>
                     <Button Click="DeletePolygon" Width="25" Margin="0 2 2 2" VerticalContentAlignment="Center">-</Button>
+                    <Button Click="ChangePolygon" Margin="0 2 2 2" VerticalContentAlignment="Center">
+                        Изменить
+                    </Button>
                 </StackPanel>
             </DockPanel>
         </Border>

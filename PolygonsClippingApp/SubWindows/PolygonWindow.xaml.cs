@@ -20,6 +20,8 @@ namespace PolygonsClippingApp.SubWindows
     /// </summary>
     public partial class PolygonWindow : Window
     {
+        public PolygonModel? PolygonModel;
+
         public PolygonModel GetPolygonModel => new PolygonModel()
         {
             Name = NameTextBox.Text,
@@ -35,6 +37,32 @@ namespace PolygonsClippingApp.SubWindows
         public PolygonWindow()
         {
             InitializeComponent();
+        }
+
+        public PolygonWindow(PolygonModel model)
+        {
+            InitializeComponent();
+
+            PolygonModel = model;
+
+            PointsTextBox.Text = PointsToString(model.Polygon.Points);
+            ColorPicker.SelectedColor = (model.Polygon.Fill as SolidColorBrush ?? new SolidColorBrush(Colors.Black)).Color;
+            NameTextBox.Text = model.Name;
+        }
+
+        public string PointsToString(PointCollection points)
+        {
+            StringBuilder sb = new();
+
+            foreach (var point in points) 
+            {
+                sb.Append(point.X + "_" + point.Y + " ");
+            }
+
+            if(sb.Length >= 1)
+                sb.Remove(sb.Length - 1, 1);
+
+            return sb.ToString();
         }
 
         protected IEnumerable<Point> GetPoints()
