@@ -22,7 +22,7 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" MinWidth="250" MaxWidth="350"/>
+                <ColumnDefinition Width="1*" MinWidth="280" MaxWidth="350"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 

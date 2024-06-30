@@ -32,7 +32,7 @@ namespace PolygonsClippingApp.UIElements
 
         private void AddPolygon(object sender, RoutedEventArgs e)
         {
-            PolygonWindow window = new();
+            PolygonWindow window = new($"Полигон {Polygons.Count + 1}");
 
             bool? dialogResult = window.ShowDialog();
 

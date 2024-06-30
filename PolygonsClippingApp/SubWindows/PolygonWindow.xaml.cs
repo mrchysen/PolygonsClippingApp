@@ -34,9 +34,13 @@ namespace PolygonsClippingApp.SubWindows
             }
         };
 
-        public PolygonWindow()
+        public PolygonWindow(string defaultText)
         {
             InitializeComponent();
+
+            NameTextBox.Text = defaultText;
+
+            PointsTextBox.Text = "1_1 1_200 200_1";
         }
 
         public PolygonWindow(PolygonModel model)
@@ -50,7 +54,7 @@ namespace PolygonsClippingApp.SubWindows
             NameTextBox.Text = model.Name;
         }
 
-        public string PointsToString(PointCollection points)
+        protected string PointsToString(PointCollection points)
         {
             StringBuilder sb = new();
 
@@ -79,8 +83,39 @@ namespace PolygonsClippingApp.SubWindows
 
         private void Create(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
-            Close();
+
+            if (IsValidPoints())
+            {
+                DialogResult = true;
+                Close();
+            }
+            else
+            {
+                WarningSpanPoints.Inlines.Clear();
+                WarningSpanPoints.Inlines.Add(new Run("Некорректный ввод"));
+            }
+
+            
         }
+
+        /// <summary>
+        /// Валидация массива точек из текста
+        /// </summary>
+        /// <returns></returns>
+        protected bool IsValidPoints() 
+        {
+            return PointsTextBox.Text.Split().All(el =>
+            {
+                var nums = el.Split("_");
+
+                if (nums.Count() != 2) return false;
+
+                var flag1 = int.TryParse(nums.First(), out int num1);
+                var flag2 = int.TryParse(nums.Last(), out int num2);
+
+                return flag1 && flag2;
+            });
+        }
+
     }
 }

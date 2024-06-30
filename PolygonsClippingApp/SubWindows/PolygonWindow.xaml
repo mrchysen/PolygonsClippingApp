@@ -10,7 +10,9 @@
     <StackPanel>
         <Label>Название полигона</Label>
         <TextBox x:Name="NameTextBox"></TextBox>
-        <Label>Точки(через пробел)</Label>
+        <TextBlock>Точки(через пробел)
+            <Span x:Name="WarningSpanPoints" Foreground="Red"></Span>
+        </TextBlock>
         <TextBox x:Name="PointsTextBox"></TextBox>
         <colorpicker:PortableColorPicker x:Name="ColorPicker" Height="30" Width="30" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
