@@ -15,7 +15,7 @@
             </MenuItem>
             
             <MenuItem Header="Полигоны">
-
+                <MenuItem Click="FindConvexIntersectionMenuItemClick" Header="Найти пересечение двух выпуклых полигонов" /> 
             </MenuItem>
 
         </Menu>

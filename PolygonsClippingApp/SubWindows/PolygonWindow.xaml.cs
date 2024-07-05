@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using PolygonsClippingApp.Models;
+using GeometryAlgorithms.Models;
 
 namespace PolygonsClippingApp.SubWindows
 {
@@ -22,7 +22,7 @@ namespace PolygonsClippingApp.SubWindows
     {
         public PolygonModel? PolygonModel;
 
-        public PolygonModel GetPolygonModel => new PolygonModel()
+        public PolygonModel GetPolygonModel => new()
         {
             Name = NameTextBox.Text,
             Polygon = new()
@@ -73,7 +73,7 @@ namespace PolygonsClippingApp.SubWindows
         {
             var collection = PointsTextBox.Text.Split().Select(el =>
             {
-                var point = el.Split("_").Select(int.Parse);
+                var point = el.Split("_").Select(double.Parse);
 
                 return new Point(point.First(), point.Last());
             });
@@ -108,10 +108,10 @@ namespace PolygonsClippingApp.SubWindows
             {
                 var nums = el.Split("_");
 
-                if (nums.Count() != 2) return false;
+                if (nums.Length != 2) return false;
 
-                var flag1 = int.TryParse(nums.First(), out int num1);
-                var flag2 = int.TryParse(nums.Last(), out int num2);
+                var flag1 = double.TryParse(nums.First(), out double num1);
+                var flag2 = double.TryParse(nums.Last(), out double num2);
 
                 return flag1 && flag2;
             });

@@ -1,9 +1,9 @@
-﻿using PolygonsClippingApp.Models;
+﻿using GeometryAlgorithms.Models;
 using PolygonsClippingApp.SubWindows;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace PolygonsClippingApp.UIElements
 {
@@ -12,9 +12,9 @@ namespace PolygonsClippingApp.UIElements
     /// </summary>
     public partial class PolygonList : UserControl
     {
-        public ObservableCollection<PolygonModel> Polygons { get; set; } = new();
+        public ObservableCollection<PolygonModel> Polygons { get; set; } = [];
         public Canvas Canvas { get; set; } = null!;
-        public PolygonModel? SelectedModel { get; set; } 
+        protected PolygonModel? SelectedModel { get; set; } 
 
         public PolygonList()
         {
@@ -28,6 +28,12 @@ namespace PolygonsClippingApp.UIElements
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedModel = (PolygonModel)PolygonListBox.SelectedValue;
+
+            if (SelectedModel != null)
+            {
+                Canvas.Children.Remove(SelectedModel.Polygon);
+                Canvas.Children.Add(SelectedModel.Polygon);
+            }
         }
 
         private void AddPolygon(object sender, RoutedEventArgs e)
@@ -40,10 +46,15 @@ namespace PolygonsClippingApp.UIElements
             {
                 var model = window.GetPolygonModel;
 
-                Polygons.Add(model);
-
-                Canvas.Children.Add(model.Polygon);
+                AddPolygon(model);
             }
+        }
+
+        public void AddPolygon(PolygonModel model)
+        {
+            Polygons.Add(model);
+
+            Canvas.Children.Add(model.Polygon);
         }
 
         private void DeletePolygon(object sender, RoutedEventArgs e)
@@ -73,9 +84,9 @@ namespace PolygonsClippingApp.UIElements
 
                 Canvas.Children.Remove(SelectedModel.Polygon);
 
-                Polygons[indexOfSelected] = model;
-
                 Canvas.Children.Add(model.Polygon);
+
+                Polygons[indexOfSelected] = model;
             }
         }
     }
