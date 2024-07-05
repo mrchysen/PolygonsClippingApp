@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Shapes;
 
-namespace PolygonsClippingApp.Models;
+namespace GeometryAlgorithms.Models;
 
 public  class PolygonModel
 {
