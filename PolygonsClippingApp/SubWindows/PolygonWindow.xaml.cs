@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+﻿using System.Windows;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using GeometryAlgorithms.Models;
 
 namespace PolygonsClippingApp.SubWindows
@@ -87,16 +77,17 @@ namespace PolygonsClippingApp.SubWindows
         /// <param name="e"></param>
         private void Create(object sender, RoutedEventArgs e)
         {
-            if (IsValidPoints())
+            if (IsValidPoints()) // Если точки валидны, то заканчиваем диалог
             {
                 DialogResult = true;
                 Close();
+                return;
             }
-            else
-            {
-                WarningSpanPoints.Inlines.Clear();
-                WarningSpanPoints.Inlines.Add(new Run("Некорректный ввод"));
-            }
+
+            // Иначе просим корректно ввести
+            WarningSpanPoints.Inlines.Clear();
+            WarningSpanPoints.Inlines.Add(new Run("Некорректный ввод"));
+            
         }
 
         /// <summary>
