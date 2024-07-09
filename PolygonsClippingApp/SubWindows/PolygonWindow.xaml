@@ -6,24 +6,36 @@
         xmlns:local="clr-namespace:PolygonsClippingApp.SubWindows"
         xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
         mc:Ignorable="d"
-        Title="PolygonWindow" Height="450" Width="800"
+        Title="Меню полигона" MinHeight="350" MinWidth="400"
+        Width="800" Height="450"
         FontSize="14">
-    <StackPanel>
-        <Label Margin="5">Название полигона</Label>
-        <TextBox x:Name="NameTextBox" TextWrapping="Wrap" Height="60" Margin="10 5 10 5"></TextBox>
-        <TextBlock Margin="5">Точки(через пробел)
-            <Span x:Name="WarningSpanPoints" Foreground="Red"></Span>
-        </TextBlock>
-        <TextBox x:Name="PointsTextBox" TextWrapping="Wrap" Height="60" Margin="10 5 10 5"></TextBox>
-        <colorpicker:PortableColorPicker x:Name="ColorPicker" Height="30" Width="30"  Margin="10"/>
-        <Grid>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition  Height="50"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel>
+            <Label Margin="5">Название полигона</Label>
+            <TextBox x:Name="NameTextBox" TextWrapping="Wrap" Height="60" Margin="10 5 10 5"></TextBox>
+            <TextBlock Margin="5">Точки(через пробел)
+        <Span x:Name="WarningSpanPoints" Foreground="Red"></Span>
+            </TextBlock>
+            <TextBox x:Name="PointsTextBox" TextWrapping="Wrap" Height="60" Margin="10 5 10 5"></TextBox>
+            <colorpicker:PortableColorPicker x:Name="ColorPicker" Height="30" Width="30"  Margin="10"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            
-            <Button IsCancel="True" Height="50">Отмена</Button>
-            <Button Grid.Column="1" Click="Create">Принять</Button>
+
+            <Button IsCancel="True">Отмена</Button>
+            <Button x:Name="SubmitButton" Grid.Column="1" Click="Create">Принять</Button>
         </Grid>
-    </StackPanel>
+
+    </Grid>
+    
 </Window>

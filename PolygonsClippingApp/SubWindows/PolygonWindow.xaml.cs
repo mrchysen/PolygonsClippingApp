@@ -17,23 +17,13 @@ namespace PolygonsClippingApp.SubWindows
 {
     /// <summary>
     /// Логика взаимодействия для PolygonWindow.xaml
+    /// Окно для создания/редактирования полигона.
     /// </summary>
     public partial class PolygonWindow : Window
     {
+        // Поля \\
         public PolygonModel? PolygonModel;
-
-        public PolygonModel GetPolygonModel => new()
-        {
-            Name = NameTextBox.Text,
-            Polygon = new()
-            {
-                Points = new PointCollection(GetPoints()),
-                Fill = new SolidColorBrush(ColorPicker.SelectedColor),
-                Stroke = new SolidColorBrush(Colors.Black),
-                StrokeThickness = 1
-            }
-        };
-
+        #region Конструкторы
         public PolygonWindow(string defaultText)
         {
             InitializeComponent();
@@ -41,8 +31,9 @@ namespace PolygonsClippingApp.SubWindows
             NameTextBox.Text = defaultText;
 
             PointsTextBox.Text = "1_1 1_200 200_1";
-        }
 
+            SubmitButton.Content = "Создать";
+        }
         public PolygonWindow(PolygonModel model)
         {
             InitializeComponent();
@@ -52,38 +43,50 @@ namespace PolygonsClippingApp.SubWindows
             PointsTextBox.Text = PointsToString(model.Polygon.Points);
             ColorPicker.SelectedColor = (model.Polygon.Fill as SolidColorBrush ?? new SolidColorBrush(Colors.Black)).Color;
             NameTextBox.Text = model.Name;
+
+            SubmitButton.Content = "Изменить";
         }
-
-        protected string PointsToString(PointCollection points)
+        #endregion
+        
+        /// <summary>
+        /// Возвращает настроенный в окошке полигон
+        /// </summary>
+        public PolygonModel GetPolygonModel => new()
         {
-            StringBuilder sb = new();
-
-            foreach (var point in points) 
+            Name = NameTextBox.Text,
+            Polygon = new()
             {
-                sb.Append(point.X + "_" + point.Y + " ");
+                Points = new PointCollection(Points),
+                Fill = new SolidColorBrush(ColorPicker.SelectedColor),
+                Stroke = new SolidColorBrush(Colors.Black),
+                StrokeThickness = 1
             }
+        };
 
-            if(sb.Length >= 1)
-                sb.Remove(sb.Length - 1, 1);
+        /// <summary>
+        /// Возвращает из коллекцию точек из строки PointsTextBox.
+        /// </summary>
+        protected IEnumerable<Point> Points
+            => from splitStr in PointsTextBox.Text.Split()
+               let point = splitStr.Split("_").Select(double.Parse)
+               select new Point(point.First(), point.Last());
 
-            return sb.ToString();
-        }
+        /// <summary>
+        /// Возвращает строку точек из данный PointCollection в виде;
+        /// X1_Y1 X2_Y2 X3_Y3 ...
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        protected string PointsToString(PointCollection points)
+            => string.Join(" ", points.Select(point => $"{point.X}_{point.Y}"));
 
-        protected IEnumerable<Point> GetPoints()
-        {
-            var collection = PointsTextBox.Text.Split().Select(el =>
-            {
-                var point = el.Split("_").Select(double.Parse);
-
-                return new Point(point.First(), point.Last());
-            });
-
-            return collection;
-        }
-
+        /// <summary>
+        /// Нажатие на SubmitButton.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Create(object sender, RoutedEventArgs e)
         {
-
             if (IsValidPoints())
             {
                 DialogResult = true;
@@ -94,8 +97,6 @@ namespace PolygonsClippingApp.SubWindows
                 WarningSpanPoints.Inlines.Clear();
                 WarningSpanPoints.Inlines.Add(new Run("Некорректный ввод"));
             }
-
-            
         }
 
         /// <summary>
@@ -103,8 +104,7 @@ namespace PolygonsClippingApp.SubWindows
         /// </summary>
         /// <returns></returns>
         protected bool IsValidPoints() 
-        {
-            return PointsTextBox.Text.Split().All(el =>
+        => PointsTextBox.Text.Split().All(el =>
             {
                 var nums = el.Split("_");
 
@@ -115,7 +115,5 @@ namespace PolygonsClippingApp.SubWindows
 
                 return flag1 && flag2;
             });
-        }
-
     }
 }
