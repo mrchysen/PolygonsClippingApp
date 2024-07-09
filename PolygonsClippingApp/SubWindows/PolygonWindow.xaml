@@ -23,7 +23,11 @@
         <Span x:Name="WarningSpanPoints" Foreground="Red"></Span>
             </TextBlock>
             <TextBox x:Name="PointsTextBox" TextWrapping="Wrap" Height="60" Margin="10 5 10 5"></TextBox>
-            <colorpicker:PortableColorPicker x:Name="ColorPicker" Height="30" Width="30"  Margin="10"/>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Margin="10 15 5 0">Цвет</TextBlock>
+                <colorpicker:PortableColorPicker x:Name="ColorPicker" Height="30" Width="30"  Margin="10"/>
+            </StackPanel>
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="5">

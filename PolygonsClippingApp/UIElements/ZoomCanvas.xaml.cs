@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -123,6 +124,14 @@ namespace PolygonsClippingApp.UIElements
             }
         }
 
+        public void UpdateElements()
+        {
+            foreach (UIElement child in this.Children)
+            {
+                child.RenderTransform = _transform;
+            }
+        }
+
         public void SetGridVisibility(Visibility value)
         {
             foreach (Line line in _gridLines)
@@ -133,6 +142,8 @@ namespace PolygonsClippingApp.UIElements
 
         private void PanAndZoomCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            Debug.WriteLine("Нажата кнопка");
+
             if (e.ChangedButton == MouseButton.Right)
             {
                 _initialMousePosition = _transform.Inverse.Transform(e.GetPosition(this));
@@ -155,12 +166,16 @@ namespace PolygonsClippingApp.UIElements
 
         private void PanAndZoomCanvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            Debug.WriteLine("Отжата кнопка");
+
             _dragging = false;
             _selectedElement = null;
         }
 
         private void PanAndZoomCanvas_MouseMove(object sender, MouseEventArgs e)
         {
+            Debug.WriteLine("Мышка двигается");
+
             if (e.RightButton == MouseButtonState.Pressed)
             {
                 Point mousePosition = _transform.Inverse.Transform(e.GetPosition(this));
@@ -189,6 +204,8 @@ namespace PolygonsClippingApp.UIElements
 
         private void PanAndZoomCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
+            Debug.WriteLine("Колёсико двигается");
+
             float scaleFactor = Zoomfactor;
             if (e.Delta < 0)
             {

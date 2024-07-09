@@ -13,7 +13,7 @@ namespace PolygonsClippingApp.UIElements
     public partial class PolygonList : UserControl
     {
         public ObservableCollection<PolygonModel> Polygons { get; set; } = [];
-        public Canvas Canvas { get; set; } = null!;
+        public ZoomCanvas Canvas { get; set; } = null!;
         protected PolygonModel? SelectedModel { get; set; } 
 
         public PolygonList()
@@ -47,6 +47,8 @@ namespace PolygonsClippingApp.UIElements
                 var model = window.GetPolygonModel;
 
                 AddPolygon(model);
+
+                Canvas.UpdateElements();
             }
         }
 
@@ -87,6 +89,8 @@ namespace PolygonsClippingApp.UIElements
                 Canvas.Children.Add(model.Polygon);
 
                 Polygons[indexOfSelected] = model;
+
+                Canvas.UpdateElements();
             }
         }
     }

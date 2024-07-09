@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PolygonsClippingApp"
         xmlns:uie="clr-namespace:PolygonsClippingApp.UIElements"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="PolygonsClippingApplication" Height="450" Width="800"
         FontSize="14" MinHeight="450" MinWidth="800">
     <DockPanel>
         <Menu FontSize="14" DockPanel.Dock="Top" Height="20" Background="Tan">
