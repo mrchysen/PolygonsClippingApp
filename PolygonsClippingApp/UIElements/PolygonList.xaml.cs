@@ -57,6 +57,8 @@ namespace PolygonsClippingApp.UIElements
             Polygons.Add(model);
 
             Canvas.Children.Add(model.Polygon);
+
+            Canvas.UpdateElements();
         }
 
         private void DeletePolygon(object sender, RoutedEventArgs e)

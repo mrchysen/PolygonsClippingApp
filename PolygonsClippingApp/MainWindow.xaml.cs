@@ -57,5 +57,29 @@ namespace PolygonsClippingApp
         { // сохранить все
             FileSaveManager.SaveToFile(PolygonList.Polygons, System.IO.Path.Combine(PathToApp, "polys.txt"));
         }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        { // Прочитать все полигоны
+            IEnumerable<PolygonModel> polygonsFromFile = [];
+            try
+            {
+                polygonsFromFile = FileReadManager.ReadPolygonArrayFromFile(System.IO.Path.Combine(PathToApp, "polys.txt"));
+            }
+            catch
+            {
+                polygonsFromFile = [];
+                MessageBox.Show("error");
+            }
+
+            foreach (var polygon in polygonsFromFile) 
+            {
+                PolygonList.AddPolygon(polygon);
+            }
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        { // Прочитать полигон
+
+        }
     }
 }

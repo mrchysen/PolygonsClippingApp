@@ -30,7 +30,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5" Orientation="Horizontal">
-                        <Label Width="20" Height="20" Background="{Binding Path=Polygon.Fill}" />
+                        <Label Width="20" Height="20" Background="{Binding Path=Fill}" />
                         <TextBlock FontSize="16" Margin="5 0 0 0" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
                     </StackPanel>
                 </DataTemplate>

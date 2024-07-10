@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Media;
@@ -14,15 +15,18 @@ public class SolidColorBrushConverter : JsonConverter<SolidColorBrush>
         byte R = ReadComponent(ref reader);
         byte G = ReadComponent(ref reader);
         byte B = ReadComponent(ref reader);
-        reader.Read();
 
         return new SolidColorBrush(Color.FromArgb(A,R,G,B));
     }
 
     private byte ReadComponent(ref Utf8JsonReader reader)
     {
-        byte value = reader.GetByte();
         reader.Read();
+
+        byte value = reader.GetByte();
+
+        reader.Read();
+
         return value;
     }
 

@@ -14,6 +14,10 @@
                 <MenuItem Click="MenuItem_Click" Header="Сохранить первый полигон" />
 
                 <MenuItem Click="MenuItem_Click_1" Header="Сохранить все полигоны" />
+                
+                <MenuItem Click="MenuItem_Click_2" Header="Прочитать все полигоны" />
+                
+                <MenuItem Click="MenuItem_Click_3" Header="Прочитать полигон" />
             </MenuItem>
             
             <MenuItem Header="Полигоны">
