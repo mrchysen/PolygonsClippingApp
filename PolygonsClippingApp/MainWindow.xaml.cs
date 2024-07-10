@@ -8,8 +8,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FileManagement;
 using GeometryAlgorithms.Intersections;
 using GeometryAlgorithms.Models;
+using System.IO;
 
 namespace PolygonsClippingApp
 {
@@ -18,6 +20,8 @@ namespace PolygonsClippingApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly string PathToApp = AppDomain.CurrentDomain.BaseDirectory;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -42,6 +46,16 @@ namespace PolygonsClippingApp
                     Fill = new SolidColorBrush(Colors.Aquamarine)
                 }
             });
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        { // сохранить первый полигон
+            FileSaveManager.SaveToFile(PolygonList.Polygons[0], System.IO.Path.Combine(PathToApp, "poly.txt"));
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        { // сохранить все
+            FileSaveManager.SaveToFile(PolygonList.Polygons, System.IO.Path.Combine(PathToApp, "polys.txt"));
         }
     }
 }

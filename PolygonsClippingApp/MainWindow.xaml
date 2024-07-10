@@ -11,7 +11,9 @@
     <DockPanel>
         <Menu FontSize="14" DockPanel.Dock="Top" Height="20" Background="Tan">
             <MenuItem Header="Файл">
-                
+                <MenuItem Click="MenuItem_Click" Header="Сохранить первый полигон" />
+
+                <MenuItem Click="MenuItem_Click_1" Header="Сохранить все полигоны" />
             </MenuItem>
             
             <MenuItem Header="Полигоны">
