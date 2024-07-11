@@ -12,6 +12,9 @@ using FileManagement;
 using GeometryAlgorithms.Intersections;
 using GeometryAlgorithms.Models;
 using System.IO;
+using Microsoft.Win32;
+using System.Diagnostics;
+using System.IO.Enumeration;
 
 namespace PolygonsClippingApp
 {
@@ -20,13 +23,15 @@ namespace PolygonsClippingApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly string PathToApp = AppDomain.CurrentDomain.BaseDirectory;
+        private readonly string PathToSaveFile = FileNamingManager.BasicPathToFiles;
 
         public MainWindow()
         {
             InitializeComponent();
 
             PolygonList.Canvas = CanvasField;
+
+
         }
 
         private void FindConvexIntersectionMenuItemClick(object sender, RoutedEventArgs e)
@@ -48,22 +53,42 @@ namespace PolygonsClippingApp
             });
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        #region Saving buttons
+        private void SaveButton(object sender, RoutedEventArgs e)
         { // сохранить первый полигон
-            FileSaveManager.SaveToFile(PolygonList.Polygons[0], System.IO.Path.Combine(PathToApp, "poly.txt"));
+            FileSaveManager.SaveToFile(PolygonList.Polygons[0], System.IO.Path.Combine(PathToSaveFile, "poly.txt"));
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        { // сохранить все
-            FileSaveManager.SaveToFile(PolygonList.Polygons, System.IO.Path.Combine(PathToApp, "polys.txt"));
-        }
 
+        /// <summary>
+        /// Обработчик кнопки - сохраняет все полигоны в файл.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveAllButton(object sender, RoutedEventArgs e)
+        {   
+            var saveDialog = new SaveFileDialog();
+
+            saveDialog.InitialDirectory = PathToSaveFile;
+            saveDialog.DefaultExt = ".json.polys";
+            saveDialog.FileName = "polygons";
+
+            if (saveDialog.ShowDialog() == true)
+            {
+                var fileName = saveDialog.FileName;
+
+                FileSaveManager.SaveToFile(PolygonList.Polygons, fileName);
+            }  
+        }
+        #endregion
+
+        #region Read-files buttons
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
-        { // Прочитать все полигоны
+        { // Прочитать массив полигоны
             IEnumerable<PolygonModel> polygonsFromFile = [];
             try
             {
-                polygonsFromFile = FileReadManager.ReadPolygonArrayFromFile(System.IO.Path.Combine(PathToApp, "polys.txt"));
+                polygonsFromFile = FileReadManager.ReadPolygonArrayFromFile(System.IO.Path.Combine(PathToSaveFile, "polys.txt"));
             }
             catch
             {
@@ -81,5 +106,6 @@ namespace PolygonsClippingApp
         { // Прочитать полигон
 
         }
+        #endregion
     }
 }
