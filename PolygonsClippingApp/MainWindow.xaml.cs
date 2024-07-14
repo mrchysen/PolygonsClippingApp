@@ -23,7 +23,7 @@ namespace PolygonsClippingApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly string PathToSaveFile = FileNamingManager.BasicPathToFiles;
+        private readonly string PathToFiles = FileNamingManager.BasicPathToFiles;
 
         public MainWindow()
         {
@@ -31,7 +31,9 @@ namespace PolygonsClippingApp
 
             PolygonList.Canvas = CanvasField;
 
+            var res = IntersectionBase.IsPointInsidePoly(new Point(25,25), [new(0,0), new(50,50), new (0,50)]);
 
+            MessageBox.Show(res.ToString());
         }
 
         private void FindConvexIntersectionMenuItemClick(object sender, RoutedEventArgs e)
@@ -60,39 +62,58 @@ namespace PolygonsClippingApp
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SaveButton(object sender, RoutedEventArgs e)
-        {   
-            var saveDialog = new SaveFileDialog();
-
-            saveDialog.InitialDirectory = PathToSaveFile;
-            saveDialog.DefaultExt = ".json.polys";
-            saveDialog.FileName = "polygons";
-
-            if (saveDialog.ShowDialog() == true)
+        {
+            try
             {
-                var fileName = saveDialog.FileName;
+                var saveDialog = new SaveFileDialog();
 
-                FileSaveManager.SaveToFile(PolygonList.Polygons, fileName);
-            }  
+                saveDialog.InitialDirectory = PathToFiles;
+                saveDialog.DefaultExt = ".polys";
+                saveDialog.FileName = "polygons";
+
+                if (saveDialog.ShowDialog() == true)
+                {
+                    var fileName = saveDialog.FileName;
+
+                    FileSaveManager.SaveToFile(PolygonList.Polygons, fileName);
+                }
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show($"Не получилось сохранить файл. Ошибка: {ex.Message}");
+            }
         }
         #endregion
 
         #region Read-files button
         private void ReadButton(object sender, RoutedEventArgs e)
         { // Прочитать массив полигоны
-            IEnumerable<PolygonModel> polygonsFromFile = [];
             try
-            {
-                polygonsFromFile = FileReadManager.ReadPolygonArrayFromFile(System.IO.Path.Combine(PathToSaveFile, "polys.txt"));
-            }
-            catch
-            {
-                polygonsFromFile = [];
-                MessageBox.Show("error");
-            }
+            { 
+                IEnumerable<PolygonModel> polygonsFromFile = [];
 
-            foreach (var polygon in polygonsFromFile) 
+                var readDialog = new OpenFileDialog();
+
+                readDialog.InitialDirectory = PathToFiles;
+                readDialog.DefaultExt = ".polys";
+                readDialog.FileName = "polygons";
+
+                if (readDialog.ShowDialog() == true)
+                {
+                    var fileName = readDialog.FileName;
+
+                    polygonsFromFile = FileReadManager.ReadPolygonArrayFromFile(fileName);
+                }
+
+                foreach (var polygon in polygonsFromFile)
+                {
+                    PolygonList.Clear();
+                    PolygonList.AddPolygon(polygon);
+                }
+            }
+            catch(Exception ex) 
             {
-                PolygonList.AddPolygon(polygon);
+                MessageBox.Show($"Не получилось считать файл. Ошибка: {ex.Message}");
             }
         }
         #endregion

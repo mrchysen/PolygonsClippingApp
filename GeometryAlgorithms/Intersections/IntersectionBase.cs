@@ -61,21 +61,31 @@ public abstract class IntersectionBase
     /// <param name="p"></param>
     /// <param name="polygon"></param>
     /// <returns></returns>
-    protected bool IsPointInsidePoly(Point p, List<Point> polygon)
+    public static bool IsPointInsidePoly(Point p, List<Point> polygon)
     {
         int i;
         int j;
         bool result = false;
         for (i = 0, j = polygon.Count - 1; i < polygon.Count; j = i++)
         {
+            Debug.WriteLine($"i={i} j={j}");
+
             if ((polygon[i].Y > p.Y) != (polygon[j].Y > p.Y) &&
                 (p.X < (polygon[j].X - polygon[i].X) * (p.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) + polygon[i].X))
             {
                 result = !result;
             }
+
+            if (p == polygon[i])
+                return true;
         }
-        return result;
+
+        return result;//|| IsPointOnEdge(p, polygon);
     }
+
+    //public static bool IsPointOnEdge(Point p, List<Point> polygon)
+    //{
+    //}
 
     /// <summary>
     /// Получаем лист точек, состоящий из точек, лежащих на прямой P1P2 и на стороне многоугольника.
@@ -122,8 +132,7 @@ public abstract class IntersectionBase
         my /= points.Count;
 
         // упорядочивание против часовой стрелки
-        var list = points.OrderBy(v => Math.Atan2(v.Y - my, v.X - mX)).ToList();
-        
+        var list = points.OrderBy(v => Math.Atan2(v.Y - my, v.X - mX)).Distinct().ToList();
         
         var result = new List<Point>();
         int indexOfRemotePoint = list.IndexOf(leftRemote);
@@ -137,6 +146,8 @@ public abstract class IntersectionBase
 
             indexOfRemotePoint = (list.Count > indexOfRemotePoint + 1) ? indexOfRemotePoint + 1 : 0;
         }
+
+        Debug.WriteLine(string.Join(",", result));
 
         return result;
     }}

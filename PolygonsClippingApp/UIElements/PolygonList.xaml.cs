@@ -36,6 +36,14 @@ namespace PolygonsClippingApp.UIElements
             }
         }
 
+        public void Clear()
+        {
+            foreach (var element in Polygons)
+                Canvas.Children.Remove(element.Polygon);
+
+            Polygons.Clear();
+        }
+
         private void AddPolygon(object sender, RoutedEventArgs e)
         {
             PolygonWindow window = new($"Полигон {Polygons.Count + 1}");
