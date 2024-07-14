@@ -11,15 +11,10 @@
     <DockPanel>
         <Menu FontSize="14" DockPanel.Dock="Top" Height="20" Background="Tan">
             <MenuItem Header="Файл">
-                <MenuItem Click="SaveButton" Header="Сохранить(выборочно)" />
-
-                <MenuItem Click="SaveAllButton" Header="Сохранить всё" />
+                <MenuItem Click="SaveButton" Header="Сохранить" />
 
                 <Separator /> 
-
-                <MenuItem Click="MenuItem_Click_2" Header="Прочитать все полигоны" />
-                
-                <MenuItem Click="MenuItem_Click_3" Header="Прочитать полигон" />
+                <MenuItem Click="ReadButton" Header="Загрузить" />
             </MenuItem>
             
             <MenuItem Header="Полигоны">

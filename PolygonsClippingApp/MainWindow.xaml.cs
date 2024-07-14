@@ -53,19 +53,13 @@ namespace PolygonsClippingApp
             });
         }
 
-        #region Saving buttons
-        private void SaveButton(object sender, RoutedEventArgs e)
-        { // сохранить первый полигон
-            FileSaveManager.SaveToFile(PolygonList.Polygons[0], System.IO.Path.Combine(PathToSaveFile, "poly.txt"));
-        }
-
-
+        #region Saving button
         /// <summary>
         /// Обработчик кнопки - сохраняет все полигоны в файл.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SaveAllButton(object sender, RoutedEventArgs e)
+        private void SaveButton(object sender, RoutedEventArgs e)
         {   
             var saveDialog = new SaveFileDialog();
 
@@ -82,8 +76,8 @@ namespace PolygonsClippingApp
         }
         #endregion
 
-        #region Read-files buttons
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        #region Read-files button
+        private void ReadButton(object sender, RoutedEventArgs e)
         { // Прочитать массив полигоны
             IEnumerable<PolygonModel> polygonsFromFile = [];
             try
@@ -100,11 +94,6 @@ namespace PolygonsClippingApp
             {
                 PolygonList.AddPolygon(polygon);
             }
-        }
-
-        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
-        { // Прочитать полигон
-
         }
         #endregion
     }

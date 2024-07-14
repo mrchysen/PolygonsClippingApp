@@ -2,6 +2,7 @@
 using System.Windows.Documents;
 using System.Windows.Media;
 using GeometryAlgorithms.Models;
+using GeometryAlgorithms.Intersections;
 
 namespace PolygonsClippingApp.SubWindows
 {
@@ -46,7 +47,7 @@ namespace PolygonsClippingApp.SubWindows
             Name = NameTextBox.Text,
             Polygon = new()
             {
-                Points = new PointCollection(Points),
+                Points = new PointCollection(IntersectionBase.OrderClockwise(Points.ToList())),
                 Fill = new SolidColorBrush(ColorPicker.SelectedColor),
                 Stroke = new SolidColorBrush(Colors.Black),
                 StrokeThickness = 1

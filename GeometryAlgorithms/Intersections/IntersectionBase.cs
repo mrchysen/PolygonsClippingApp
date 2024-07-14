@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Numerics;
+using System.Windows;
 using static GeometryAlgorithms.GeometryComparer;
 
 
@@ -98,13 +100,20 @@ public abstract class IntersectionBase
         return intersectionPoints;
     }
 
-    protected List<Point> OrderClockwise(List<Point> points)
+    public static List<Point> OrderClockwise(List<Point> points)
     {
-        double mX = 0;
-        double my = 0;
+        double mX = 0; // кооридината Х центра масс
+        double my = 0; // координата Y центра масс
+
+        Point leftRemote = points[0];
 
         foreach (Point p in points)
         {
+            if(p.X < leftRemote.X) 
+            {
+                leftRemote = p;
+            }
+
             mX += p.X;
             my += p.Y;
         }
@@ -112,6 +121,22 @@ public abstract class IntersectionBase
         mX /= points.Count;
         my /= points.Count;
 
-        return points.OrderBy(v => Math.Atan2(v.Y - my, v.X - mX)).ToList();
-    }
-}
+        // упорядочивание против часовой стрелки
+        var list = points.OrderBy(v => Math.Atan2(v.Y - my, v.X - mX)).ToList();
+        
+        
+        var result = new List<Point>();
+        int indexOfRemotePoint = list.IndexOf(leftRemote);
+
+        result.Add(list[indexOfRemotePoint]);
+        indexOfRemotePoint = (list.Count > indexOfRemotePoint + 1) ? indexOfRemotePoint + 1: 0;
+
+        while (list[indexOfRemotePoint] != leftRemote)
+        {
+            result.Add(list[indexOfRemotePoint]);
+
+            indexOfRemotePoint = (list.Count > indexOfRemotePoint + 1) ? indexOfRemotePoint + 1 : 0;
+        }
+
+        return result;
+    }}
